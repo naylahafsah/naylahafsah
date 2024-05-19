@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+
+// Struktur untuk queue
+typedef struct {
+    int items[MAX_SIZE];
+    int front;
+    int rear;
+} Queue;
+
+// Fungsi untuk membuat queue baru
+Queue* createQueue() {
+    Queue* queue = (Queue*)malloc(sizeof(Queue));
+    queue->front = -1;
+    queue->rear = -1;
+    return queue;
+}
+
+// Fungsi untuk mengecek apakah queue kosong
+int isEmpty(Queue* queue) {
+    return queue->front == -1;
+}
+
+// Fungsi untuk mengecek apakah queue penuh
+int isFull(Queue* queue) {
+    return queue->rear == MAX_SIZE - 1;
+}
+
+// Fungsi untuk menambahkan elemen ke dalam queue
+void enqueue(Queue* queue, int value) {
+    if (isFull(queue)) {
+        printf("Queue penuh! Tidak dapat menambahkan elemen.\n");
+        return;
+    }
+    if (isEmpty(queue)) {
+        queue->front = 0;
+    }
+    queue->rear++;
+    queue->items[queue->rear] = value;
+    printf("%d ditambahkan ke dalam queue.\n", value);
+}
+
+// Fungsi untuk menghapus elemen dari queue
+int dequeue(Queue* queue) {
+    int item;
+    if (isEmpty(queue)) {
+        printf("Queue kosong! Tidak ada elemen untuk dihapus.\n");
+        return -1;
+    }
+    item = queue->items[queue->front];
+    if (queue->front >= queue->rear) {
+        queue->front = -1;
+        queue->rear = -1;
+    } else {
+        queue->front++;
+    }
+    printf("%d dihapus dari queue.\n", item);
+    return item;
+}
+
+// Fungsi untuk mendapatkan elemen terdepan dari queue
+int peek(Queue* queue) {
+    if (isEmpty(queue)) {
+        printf("Queue kosong! Tidak ada elemen.\n");
+        return -1;
+    }
+    return queue->items[queue->front];
+}
+
+int main() {
+    Queue* queue = createQueue();
+
+    enqueue(queue, 6);
+    enqueue(queue, 12);
+    enqueue(queue, 18);
+    enqueue(queue, 24);
+
+    printf("Elemen terdepan: %d\n", peek(queue));
+
+    dequeue(queue);
+    dequeue(queue);
+
+    printf("Elemen terdepan setelah penghapusan: %d\n", peek(queue));
+
+    return 0;
+}
