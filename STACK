@@ -1,0 +1,23 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+int main() {
+    stack <int> s;
+
+    // Menambahkan elemen ke stack
+    s.push(30);
+    s.push(60);
+    s.push(80);
+
+    // Menampilkan elemen teratas
+    cout << "Elemen teratas: " << s.top() << endl;
+
+    // Menghapus elemen teratas
+    s.pop();
+
+    // Menampilkan elemen teratas setelah penghapusan
+    cout << "Elemen teratas setelah penghapusan: " << s.top() << endl;
+
+    return 0;
+}
